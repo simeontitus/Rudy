@@ -1,0 +1,163 @@
+/* ==========================================================
+   RUDY AGRITACTIC – MACHINE PAGES
+   Brand colours: swap these hex values for the exact brand ones.
+   ========================================================== */
+:root {
+  --green: #1f4d2b;        /* forest green – main brand colour */
+  --green-dark: #143620;
+  --orange: #e8752a;       /* accent / buttons */
+  --orange-dark: #c95f1a;
+  --cream: #f6f0e3;        /* page background */
+  --white: #ffffff;
+  --ink: #1d231f;          /* main text */
+  --muted: #5d665f;        /* secondary text */
+  --line: #e2d9c6;
+  --wa: #1f9d55;           /* WhatsApp button */
+  --radius: 14px;
+  --font: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.5;
+  font-size: 16px;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--green); }
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+
+/* ---------- Header ---------- */
+.top {
+  background: var(--green);
+  color: var(--white);
+  padding: 12px 0;
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--white); text-decoration: none; }
+.brand img { height: 38px; width: auto; }
+.brand-text { font-weight: 800; letter-spacing: .04em; font-size: 15px; text-transform: uppercase; line-height: 1.15; }
+.brand-text small { display: block; font-weight: 500; letter-spacing: .02em; text-transform: none; opacity: .8; font-size: 12px; }
+.top-call {
+  color: var(--white); text-decoration: none; font-weight: 700; font-size: 14px;
+  border: 1.5px solid rgba(255,255,255,.5); border-radius: 999px; padding: 7px 14px; white-space: nowrap;
+}
+
+/* ---------- Hero ---------- */
+.hero { background: var(--green); color: var(--white); padding: 4px 0 28px; }
+.hero-photo {
+  background: var(--white); border-radius: var(--radius); overflow: hidden;
+  aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center;
+}
+.hero-photo img { width: 100%; height: 100%; object-fit: contain; }
+.photo-missing {
+  text-align: center; color: var(--muted); font-size: 14px; padding: 20px;
+  border: 2px dashed var(--line); border-radius: 10px; margin: 16px;
+}
+.eyebrow { color: var(--orange); font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin: 18px 0 4px; }
+.hero h1 { font-size: 30px; line-height: 1.15; margin: 0 0 8px; }
+.hero p.lead { margin: 0; opacity: .9; }
+
+/* ---------- Action buttons ---------- */
+.actions { display: grid; gap: 10px; margin-top: -16px; position: relative; }
+.btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 54px; padding: 12px 18px; border-radius: 12px;
+  font-weight: 700; font-size: 16px; text-decoration: none; border: 0; cursor: pointer;
+  font-family: inherit; width: 100%;
+}
+.btn svg { width: 22px; height: 22px; flex: none; }
+.btn-wa { background: var(--wa); color: var(--white); box-shadow: 0 6px 18px rgba(31,157,85,.25); }
+.btn-orange { background: var(--orange); color: var(--white); }
+.btn-outline { background: var(--white); color: var(--green); border: 2px solid var(--green); }
+.btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* ---------- Sections ---------- */
+section.card {
+  background: var(--white); border-radius: var(--radius); padding: 20px 18px;
+  margin: 16px 0; border: 1px solid var(--line);
+}
+section.card h2 { font-size: 20px; margin: 0 0 12px; color: var(--green); display: flex; align-items: center; gap: 8px; }
+section.card h2 .num {
+  background: var(--orange); color: var(--white); border-radius: 50%; width: 26px; height: 26px;
+  font-size: 13px; display: inline-flex; align-items: center; justify-content: center; flex: none;
+}
+section.card p { margin: 0 0 10px; }
+
+/* ---------- Video (loads only when tapped – saves data) ---------- */
+.video {
+  position: relative; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden;
+  background: var(--green-dark); color: var(--white); cursor: pointer;
+}
+.video img { width: 100%; height: 100%; object-fit: cover; opacity: .75; }
+.video .play {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px; font-weight: 700; text-align: center; padding: 12px;
+}
+.video .play span.circle {
+  width: 64px; height: 64px; border-radius: 50%; background: var(--orange);
+  display: flex; align-items: center; justify-content: center;
+}
+.video .play small { font-weight: 500; opacity: .85; }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video.empty { cursor: default; }
+
+/* ---------- Specs table ---------- */
+table.specs { width: 100%; border-collapse: collapse; font-size: 15px; }
+table.specs th, table.specs td { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.specs th { color: var(--muted); font-weight: 600; width: 44%; }
+table.specs tr:last-child th, table.specs tr:last-child td { border-bottom: 0; }
+
+/* ---------- Care steps ---------- */
+ol.steps { margin: 0; padding-left: 0; list-style: none; counter-reset: s; }
+ol.steps li { counter-increment: s; position: relative; padding: 0 0 12px 38px; }
+ol.steps li::before {
+  content: counter(s); position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--cream); color: var(--green); font-weight: 800; font-size: 13px;
+  display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--green);
+}
+.safety {
+  background: #fff4ea; border-left: 4px solid var(--orange); padding: 12px 14px; border-radius: 8px; margin-top: 6px; font-size: 15px;
+}
+
+/* ---------- Downloads ---------- */
+.dl { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; color: var(--ink); margin-bottom: 8px; }
+.dl .ico { width: 40px; height: 40px; border-radius: 8px; background: var(--cream); color: var(--green); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; flex: none; }
+.dl strong { display: block; }
+.dl small { color: var(--muted); }
+
+/* ---------- Machine grid (index page) ---------- */
+.grid { display: grid; gap: 12px; grid-template-columns: 1fr; margin: 20px 0; }
+@media (min-width: 560px) { .grid { grid-template-columns: 1fr 1fr; } }
+.tile { background: var(--white); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: var(--ink); border: 1px solid var(--line); display: flex; flex-direction: column; }
+.tile .pic { aspect-ratio: 4/3; background: var(--white); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--line); }
+.tile .pic img { width: 100%; height: 100%; object-fit: contain; }
+.tile .body { padding: 14px 16px; }
+.tile h3 { margin: 0 0 4px; color: var(--green); font-size: 18px; }
+.tile p { margin: 0; color: var(--muted); font-size: 14px; }
+.tile .go { color: var(--orange); font-weight: 700; font-size: 14px; margin-top: 8px; display: inline-block; }
+
+/* ---------- Footer ---------- */
+footer { background: var(--green); color: var(--white); padding: 26px 0 32px; margin-top: 24px; font-size: 15px; }
+footer a { color: var(--white); }
+footer .fname { font-weight: 800; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+footer .row { margin: 4px 0; opacity: .92; }
+footer .small { font-size: 12px; opacity: .65; margin-top: 16px; }
+
+/* ==========================================================
+   DRAFT MARKERS – anything with class="todo" shows as an orange
+   dashed box so you can spot what still needs filling in.
+   When you replace the text, delete  class="todo"  too.
+   ========================================================== */
+.todo {
+  background: #fff4ea; outline: 2px dashed var(--orange); outline-offset: -2px;
+  color: var(--orange-dark); font-style: italic;
+}
+li.todo, p.todo { padding: 4px 8px 4px 38px; border-radius: 6px; }
+p.todo { padding-left: 8px; }
+
+.hidden { display: none !important; }

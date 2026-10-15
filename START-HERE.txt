@@ -1,0 +1,64 @@
+RUDY AGRITACTIC – MACHINE QR PAGES
+==================================
+
+WHAT'S IN THIS FOLDER
+  index.html                  All machines (for brochures, flyers, showroom, email signature)
+  pellet-machine.html         One page per machine – each sticker's QR points to its own page
+  industrial-pelletizer.html
+  feed-mixer-4000l.html
+  boskos-3-in-1.html
+  bosvark-3-in-1.html
+  assets/config.js            Company phone, WhatsApp, email, address, links  <-- EDIT THIS
+  assets/style.css            Colours and layout (brand hex codes are at the top)
+  assets/site.js              Makes the buttons work – no need to touch
+  images/                     Put the logo and machine photos here
+  files/                      Put PDF manuals / spec sheets here
+  qr-maker.html               Your tool for making the QR codes (don't upload for customers to see)
+
+
+STEP 1 – FILL IN THE DETAILS (Sublime Text)
+  1. assets/config.js: WhatsApp number (264 + number without the 0), phone, email, website,
+     hours, and the Google Maps link to their gate.
+  2. Each machine page: replace every orange dashed "Fill in" with the real spec,
+     and delete  class="todo"  from that line. Same for the 4 care-guide steps.
+     Get the specs and care routine from Rudy's workshop team – don't guess.
+  3. Boskos and Bosvark pages: write the one-line description under the title.
+  4. Brand colours: top of assets/style.css – swap in the exact hex codes.
+
+STEP 2 – ADD PHOTOS, LOGO, VIDEOS, PDFs
+  images/logo.png                 white or light version of the logo (it sits on green)
+  images/pellet-machine.jpg       one clean photo per machine, file name = page name
+  images/industrial-pelletizer.jpg
+  images/feed-mixer-4000l.jpg
+  images/boskos-3-in-1.jpg
+  images/bosvark-3-in-1.jpg
+  -> Keep photos around 1200px wide and under 300 KB so they load fast on farm data.
+
+  Videos: on each machine page find  data-youtube=""  and paste the YouTube link inside the quotes.
+  PDFs: save as files/pellet-machine-manual.pdf, files/pellet-machine-spec-sheet.pdf, etc.
+  Download buttons only appear once the PDF exists – nothing breaks if you skip this.
+
+  Test anything by double-clicking the .html file to open it in Chrome.
+  (WhatsApp buttons, photos and videos work; PDF buttons only show once it's online.)
+
+STEP 3 – HOST IT FREE ON GITHUB PAGES
+  Tip: create the GitHub account with a Rudy company email, so Rudy owns it, not you.
+  1. github.com -> sign up -> "New repository" -> name it  machines  -> Public -> Create.
+  2. "uploading an existing file" -> drag in EVERYTHING inside this folder
+     (except qr-maker.html if you like) -> Commit changes.
+  3. Settings -> Pages -> Source: "Deploy from a branch" -> Branch: main, folder: / (root) -> Save.
+  4. After 1–2 minutes the site is live at:  https://USERNAME.github.io/machines/
+     If Rudy owns a domain, it can be connected later (e.g. machines.rudyagritactic.com).
+  To update later: upload the changed file again with the same name. QR codes keep working.
+
+STEP 4 – MAKE THE QR CODES
+  1. Open qr-maker.html in Chrome (needs internet).
+  2. Paste the live address from Step 3.
+  3. Download each machine's QR as SVG and place it on the sticker artwork in Illustrator,
+     next to the existing logo / website / numbers. Add a short line like "Scan for manual, spares & service".
+  4. Print ONE sticker, put it on a machine, scan it with 2–3 phones in sunlight. Then print the batch.
+     Keep the QR at least 3–4 cm wide, black or dark green on white, with a white border around it.
+
+IMPORTANT
+  Never rename or move the page files after the stickers are printed –
+  the QR codes point to those exact file names. You can change everything INSIDE the pages any time.

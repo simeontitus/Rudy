@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QR Maker – Rudy Machine Pages</title>
+<!--
+  QR MAKER (for you, not for customers – don't link to it)
+  1. Open this file in Chrome AFTER the pages are hosted.
+  2. Paste the live web address of the folder.
+  3. Download each QR as SVG and place it on the sticker in Illustrator.
+-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<style>
+  :root { --green:#1f4d2b; --orange:#e8752a; --cream:#f6f0e3; --line:#e2d9c6; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:"Segoe UI",Roboto,Arial,sans-serif; background:var(--cream); color:#1d231f; }
+  .wrap { max-width:960px; margin:0 auto; padding:24px 16px 48px; }
+  h1 { color:var(--green); margin:0 0 4px; }
+  p { margin:0 0 16px; color:#5d665f; }
+  .bar { background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px; display:grid; gap:12px; margin-bottom:20px; }
+  label { font-weight:700; font-size:14px; }
+  input[type=text] { width:100%; padding:12px; font-size:16px; border:1.5px solid var(--line); border-radius:8px; }
+  .opts { display:flex; gap:16px; flex-wrap:wrap; font-size:14px; align-items:center; }
+  .grid { display:grid; gap:14px; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); }
+  .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px; text-align:center; }
+  .card h3 { margin:0 0 8px; font-size:16px; color:var(--green); }
+  .card .qr svg { width:180px; height:180px; }
+  .card .url { font-size:11px; color:#5d665f; word-break:break-all; margin:8px 0; }
+  .card button { background:var(--orange); color:#fff; border:0; border-radius:8px; padding:9px 12px; font-weight:700; cursor:pointer; margin:3px; }
+  .card button.alt { background:var(--green); }
+  .tip { background:#fff4ea; border-left:4px solid var(--orange); padding:12px 14px; border-radius:8px; font-size:14px; margin-top:20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>QR code maker</h1>
+  <p>One QR per machine page. SVG is best for Illustrator; PNG for quick tests.</p>
+
+  <div class="bar">
+    <label for="base">Live address of the pages folder</label>
+    <input id="base" type="text" placeholder="e.g. https://rudyagritactic.github.io/machines/" value="https://YOUR-SITE-ADDRESS/">
+    <div class="opts">
+      <label><input type="radio" name="col" value="#000000" checked> Black (most reliable)</label>
+      <label><input type="radio" name="col" value="#1f4d2b"> Brand green</label>
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="tip">
+    <strong>Before printing a batch:</strong> print one sticker at the real size, stick it on a machine,
+    and scan it with 2–3 different phones in sunlight. Keep the QR at least 3–4 cm wide, dark on a light
+    background, with a white border (quiet zone) around it. Never put the QR on top of a photo or pattern.
+  </div>
+</div>
+
+<script>
+var PAGES = [
+  ["All machines (brochures, showroom)", "index.html"],
+  ["Pellet Machine (Single-Phase)", "pellet-machine.html"],
+  ["Industrial Pelletizer", "industrial-pelletizer.html"],
+  ["4000L Horizontal Feed Mixer", "feed-mixer-4000l.html"],
+  ["Boskos 3-in-1", "boskos-3-in-1.html"],
+  ["Bosvark 3-in-1", "bosvark-3-in-1.html"]
+];
+
+function makeSvg(text, color) {
+  var qr = qrcode(0, "Q");   // Q = survives some dirt / scratches
+  qr.addData(text); qr.make();
+  var n = qr.getModuleCount(), q = 4, size = n + q * 2, d = "";
+  for (var r = 0; r < n; r++) for (var c = 0; c < n; c++)
+    if (qr.isDark(r, c)) d += "M" + (c + q) + " " + (r + q) + "h1v1h-1z";
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + size + " " + size +
+    '" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#ffffff"/><path fill="' +
+    color + '" d="' + d + '"/></svg>';
+}
+
+function download(name, blob) {
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = name; a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+}
+
+function svgToPng(svg, name) {
+  var img = new Image(), px = 1200;
+  img.onload = function () {
+    var cv = document.createElement("canvas"); cv.width = cv.height = px;
+    var ctx = cv.getContext("2d"); ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(img, 0, 0, px, px);
+    cv.toBlob(function (b) { download(name, b); }, "image/png");
+  };
+  img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+
+function render() {
+  var base = document.getElementById("base").value.trim();
+  if (base && !base.endsWith("/")) base += "/";
+  var color = document.querySelector("input[name=col]:checked").value;
+  var grid = document.getElementById("grid"); grid.innerHTML = "";
+  PAGES.forEach(function (p) {
+    var url = base + p[1], svg = makeSvg(url, color);
+    var file = "qr-" + p[1].replace(".html", "");
+    var card = document.createElement("div"); card.className = "card";
+    card.innerHTML = "<h3>" + p[0] + '</h3><div class="qr">' + svg + '</div><div class="url">' + url + "</div>";
+    var b1 = document.createElement("button"); b1.textContent = "Download SVG";
+    b1.onclick = function () { download(file + ".svg", new Blob([svg], { type: "image/svg+xml" })); };
+    var b2 = document.createElement("button"); b2.textContent = "Download PNG"; b2.className = "alt";
+    b2.onclick = function () { svgToPng(svg, file + ".png"); };
+    card.appendChild(b1); card.appendChild(b2); grid.appendChild(card);
+  });
+}
+
+document.getElementById("base").addEventListener("input", render);
+document.querySelectorAll("input[name=col]").forEach(function (r) { r.addEventListener("change", render); });
+if (typeof qrcode === "undefined") {
+  document.getElementById("grid").innerHTML = "<p>Couldn't load the QR library – check your internet connection and refresh.</p>";
+} else { render(); }
+</script>
+</body>
+</html>
